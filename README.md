@@ -1,7 +1,7 @@
 # OOP-saezzatsayed
 
 |Name	| Value|
- :----------:
+|:----------:|
 |Course	| CSCI375 - OOP|
 ------
 |Section	| 1|
