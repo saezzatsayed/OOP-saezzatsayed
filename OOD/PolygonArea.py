@@ -3,41 +3,40 @@ import classes
 
 lines = []
 
-while True:
+n = int(input())
+lines = []
+for k in range(n):
     line = input()
-    if not line:
-        break
     lines.append(line)
 
-no_of_Polys = int(lines[0])
-polygons_array = []
+no_of_polygons = n
 
-k = 0
-counter = 0
-while k < no_of_Polys:
-    polygons_array = classes.Polygon(0,0)
-    k += 1
-    counter += 1
+polygons = []
+
+for polys in range(0,int(no_of_polygons)):
+    polygons.append(classes.Polygon())
 
 i = 0
+j = 0
+striped_line = []
 
-nums = len(lines)
+for i in range(0,len(lines)):
+    this_line = lines[i]
+    striped_line = this_line.split()
+    polygons[j].no_of_pairs = striped_line[0]
+    polygons[j].x_vals = []  
+    polygons[j].y_vals = []
+    for xvals in range(1,len(striped_line),2):
+        polygons[j].x_vals.append(striped_line[xvals])
+    for yvals in range(2,len(striped_line),2):
+        polygons[j].y_vals.append(striped_line[yvals])
+    j += 1
 
-for nums in lines:
-    if i + 1 <= len(lines):
-        this_line = lines[i]
-        for p in polygons_array:
-            polygons_array[i].no_of_pairs = this_line[0]
-        if len(this_line) % 2 == 0:
-            this_line = this_line[:-1]
-        else:
-            continue
-    else:
-        break
-    i += 1
+result = []
 
-print(polygons_array[0].no_of_pairs)
-
+for l in range(0, int(no_of_polygons)):
+  result.append(classes.polygon_area(polygons[l].x_vals,polygons[l].y_vals,int(polygons[l].no_of_pairs)))
+  print(f"{result[l]}")
 
 
 

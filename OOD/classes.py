@@ -1,6 +1,14 @@
+def polygon_area(x, y, n):
+    area = 0.0
 
+    j = n - 1
+    for i in range(0,n):
+        area += (float(x[j])+float(x[i])) * (float(y[j])-float(y[i]))
+        j = i
+    
+    return float(abs(area/2.0))
 
 class Polygon:
-    def __init__(self, no_of_pairs, xy_pairs):
-        self.no_of_pairs = 0
-        self.xy_pairs = []
+    no_of_pairs = 0
+    x_vals = []
+    y_vals = []
