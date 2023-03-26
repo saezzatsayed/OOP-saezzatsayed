@@ -1,7 +1,8 @@
 import math 
 import classes
+from typing import List
 
-lines = []
+lines: List[str] = []
 
 n = int(input())
 lines = []
@@ -23,20 +24,23 @@ striped_line = []
 for i in range(0,len(lines)):
     this_line = lines[i]
     striped_line = this_line.split()
-    polygons[j].no_of_pairs = striped_line[0]
-    polygons[j].x_vals = []  
-    polygons[j].y_vals = []
-    for xvals in range(1,len(striped_line),2):
-        polygons[j].x_vals.append(striped_line[xvals])
-    for yvals in range(2,len(striped_line),2):
-        polygons[j].y_vals.append(striped_line[yvals])
+    polygons[j].set_no_of_pairs(int(striped_line[0]))
+    polygons[j].set_x_vals([])  
+    polygons[j].set_y_vals([])
+    x_vals = []
+    y_vals = []
+    for k in range(1, len(striped_line), 2):
+        x_vals.append(int(striped_line[k]))
+    for k in range(2, len(striped_line), 2):
+        y_vals.append(int(striped_line[k]))
+    polygons[j].set_x_vals(x_vals)
+    polygons[j].set_y_vals(y_vals)
     j += 1
 
-result = []
 
 for l in range(0, int(no_of_polygons)):
-  result.append(classes.polygon_area(polygons[l].x_vals,polygons[l].y_vals,int(polygons[l].no_of_pairs)))
-  print(f"{result[l]}")
+    result = classes.polygon_area(polygons[l].get_x_vals(),polygons[l].get_y_vals(),polygons[l].get_no_of_pairs())
+    print(result)
 
 
 
