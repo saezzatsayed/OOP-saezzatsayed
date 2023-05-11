@@ -1,35 +1,41 @@
-import asyncio
-import os
-
-import python_weather
-from classes import Weather
-
-async def get_weather_data(city: str) -> Weather:
-    website = "https://www.weatherapi.com/"  # Replace with the actual website URL
-    api_key = "0e5daea3e0f14ffdb2f222213231005"  # Replace with your API key
-    
-    client = python_weather.Client(format=python_weather.METRIC)
-    await client.fetch(f"{website}/api?key={api_key}&q={city}")
-    
-    weather = client.api_response
-    client.close()
-        
-    # Extract relevant weather information
-    temperature = weather.current.temperature
-    description = weather.current.sky_text
-        
-    return Weather(temperature, description)
+import requests
+from classes import temperature_converter, Weather
 
 def main():
-    city = input("Enter a city: ")
-    weather = asyncio.run(get_weather_data(city))
-    
+    BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
+    api_key = "72256f3b701ba9ac41e89ebf6bb62a98"
+
+    city = input('Enter City: ')
+
+    url = BASE_URL + "appid=" + api_key + "&q=" + city 
+
+    response = requests.get(url).json()
+
+    temp_k = response['main']['temp']
+    feels_like_k = response['main']['feels_like']
+
+    temp_converter = temperature_converter(temp_k)
+    feels_converter = temperature_converter(feels_like_k)
+
+    temp_c, temp_f = temp_converter.kelvin_to_cels_fahr()
+
+    weather_description = response['weather'][0]['description']
+    humidity = response['main']['humidity']
+
+    weather_data = Weather(None, None, None, None)
+    weather_data.set_temperature(temp_c)
+    weather_data.set_description(weather_description)
+    weather_data.set_humidity(humidity)
+    weather_data.set_feels_like(temp_c)
+
     # Print the weather details
-    print(f"Temperature: {weather.get_temperature()}°C")
-    print(f"Description: {weather.get_description()}")
-    
+    print("Temperature:", weather_data.get_temperature(), "°C")
+    print("Temperature:", temp_f, "°F")
+    print("Description:", weather_data.get_description())
+    print("Humidity:", weather_data.get_humidity(),'%')
+    print("Feels Like:", weather_data.get_feels_like(), "°C")
+
 if __name__ == '__main__':
-    if os.name == 'nt':
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-  
     main()
+else:
+    print("This is an imported file")
