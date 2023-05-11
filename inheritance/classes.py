@@ -1,10 +1,17 @@
 # creating class sample.
-class Sample:
+class Sample(list):
+    """
+    Represents a sample of data.
+    Inherits from the built-in list class.
+    """
 
-    #initializing sample.
-    def __init__(self):
-        self._data = []
-        self._n = 0
+    def __init__(self, data=None):
+        """
+        Initializes a Sample object with the given data (optional).
+        """
+        super().__init__(data or [])
+        self._n = len(self)
+        self._data = data
 
     # Setting data.
     def set_data(self, data):

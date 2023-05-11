@@ -1,3 +1,5 @@
+DOCS = docs
+
 .ONESHELL:
 
 .DEFAULT_GOAL := run
@@ -7,7 +9,15 @@ mypy:
 	mypy PolygonArea.py --explicit-package-bases
 
 uml_diagram:
-	pyreverse -o png -p OLIPY .
+	pyreverse -o pdf -p OLIPY .
+
+create_folder:
+	@mkdir -p $(DOCS)
+
+create_docs: create_folder
+	pdoc --force -o docs classes.py PolygonArea.py
+	pdoc --force --html -o docs classes.py PolygonArea.py
+	@echo "docs created."
 
 req:
 	touch requirements.txt

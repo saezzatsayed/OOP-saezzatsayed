@@ -1,3 +1,5 @@
+DOCS = docs
+
 .ONESHELL:
 
 .DEFAULT_GOAL := run
@@ -8,6 +10,17 @@ mypy:
 
 uml_diagram:
 	pyreverse -o png -p OLIPY .
+
+create_folder:
+	@mkdir -p $(DOCS)
+
+create_docs: create_folder
+	pdoc --force -o docs classes.py main.py
+	pdoc --force --html -o docs classes.py main.py
+	@echo "docs created."
+
+test:
+	python -m unittest test.py
 
 req:
 	touch requirements.txt

@@ -1,13 +1,30 @@
+DOCS = docs
+
 .ONESHELL:
 
 .DEFAULT_GOAL := run
 
 mypy:
 	mypy classes.py
-	mypy mixedFractions.py --explicit-package-bases
+	mypy main.py --explicit-package-bases
 
 uml_diagram:
 	pyreverse -o png -p OLIPY .
+
+create_folder:
+	@mkdir -p $(DOCS)
+
+create_docs: create_folder
+	pdoc --force -o docs classes.py main.py
+	pdoc --force --html -o docs classes.py main.py
+	@echo "docs created."
+
+test:
+	python -m unittest test.py
+
+coverage:
+	coverage run test.py
+	coverage html
 
 req:
 	touch requirements.txt

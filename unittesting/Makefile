@@ -8,13 +8,16 @@ create_doc_folder:
 	@mkdir -p $(DOCS)
 
 create_docs: create_doc_folder
-	pdoc -o docs morse.py classes.py 
-	pdoc --html -o docs morse.py classes.py 
+	pdoc -o docs main.py classes.py 
+	pdoc --html -o docs main.py classes.py 
 	@echo "html docs created and saved in $(DOCS)"
+
+test:
+	python3 -m unittest test.py
 
 mypy:
 	mypy classes.py
-	mypy morse.py --explicit-package-bases
+	mypy main.py --explicit-package-bases
 
 uml_diagram:
 	pyreverse -o png -p OLIPY .
@@ -31,4 +34,4 @@ venv: venv/bin/activate
 	. ./venv/bin/activate
 
 run: venv
-	python3 morse.py
+	python3 main.py
