@@ -71,3 +71,12 @@
 |Location       |https://github.com/saezzatsayed/OOP-saezzatsayed/tree/main/abstract|
 |Self Grade    |90/100|
 |Notes |All technical requiremnts are met in addition to creating a virtual enviroment|
+
+# Assignment 8
+|Name            |Value                    |
+|:--------------:|:-----------------------:|
+|Name          |Weather APP |
+|Description         |Create a program to retrive weather data from a website using API key |
+|Location       |https://github.com/saezzatsayed/OOP-saezzatsayed/tree/main/serialization|
+|Self Grade    |100/100|
+|Notes |All technical requiremnts are met in addition to creating a virtual enviroment|
